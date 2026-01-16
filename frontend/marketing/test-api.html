@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Glixtron API</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+        pre { background: #f4f4f4; padding: 10px; border-radius: 5px; }
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Glixtron API Test</h1>
+    
+    <button onclick="testHealth()">Test Health Check</button>
+    <button onclick="testAPI()">Test API Info</button>
+    <button onclick="testProducts()">Test Products API</button>
+    
+    <h2>Results:</h2>
+    <pre id="result">Click a button to test...</pre>
+    
+    <script>
+        const API_BASE = 'http://localhost:3001';
+        
+        async function testHealth() {
+            try {
+                const response = await fetch(`${API_BASE}/api/health`);
+                const data = await response.json();
+                document.getElementById('result').innerHTML = 
+                    `✅ Health Check Successful\n\n${JSON.stringify(data, null, 2)}`;
+            } catch (error) {
+                document.getElementById('result').innerHTML = 
+                    `❌ Error: ${error.message}\n\nMake sure backend is running on port 3001`;
+            }
+        }
+        
+        async function testAPI() {
+            try {
+                const response = await fetch(`${API_BASE}/api`);
+                const data = await response.json();
+                document.getElementById('result').innerHTML = 
+                    `✅ API Info\n\n${JSON.stringify(data, null, 2)}`;
+            } catch (error) {
+                document.getElementById('result').innerHTML = 
+                    `❌ Error: ${error.message}`;
+            }
+        }
+        
+        async function testProducts() {
+            try {
+                const response = await fetch(`${API_BASE}/api/products`);
+                const data = await response.json();
+                document.getElementById('result').innerHTML = 
+                    `✅ Products API\n\n${JSON.stringify(data, null, 2)}`;
+            } catch (error) {
+                document.getElementById('result').innerHTML = 
+                    `❌ Error: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>
