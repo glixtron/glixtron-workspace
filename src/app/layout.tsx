@@ -1,3 +1,4 @@
+import Link from 'next/link'
 export const metadata = {
   title: 'Glixtron - Modern Solutions',
   description: 'Next-generation technology solutions',
